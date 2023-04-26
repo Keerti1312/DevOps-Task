@@ -1,21 +1,21 @@
 pipeline{
     agent any
     stages{
-        stage('Terraform init'){
+        stage('terraform init'){
             steps{
-                sh 'terraform init'
+                sh'terraform init'
             }
         }
 
-        stage('Terraform plan'){
+        stage('terraform plan'){
             steps{
-                sh 'terraform plan'
+                sh'terraform plan'
             }
         }
 
-        stage('Terraform action'){
+        stage('terraform action'){
             steps{
-                echo "the action from the parameter is ${action}"
+                echo 'terraform action from the parameter is ${action}'
                 sh 'terraform ${action} --auto-approve'
             }
         }
