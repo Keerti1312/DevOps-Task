@@ -3,11 +3,11 @@ pipeline{
     stages{
         stage('build image'){
             steps{
-                sh 'docker build -t alpine1:2.0 .'
+                sh 'docker build -t alpine1:2.0 -d .'
             }
         }
 
-        stage('authorize doccker with gcr'){
+        stage('authorize docker with gcr'){
             steps{
                 sh 'gcloud auth configure-docker'
             }
