@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage('build image'){
             steps{
-                sh 'docker build -t alpine1:2.0 -d .'
+                sh 'docker build -t alpine1:2.0 .'
             }
         }
 
