@@ -3,6 +3,7 @@ pipeline{
     stages{
         stage('build image'){
             steps{
+                sh 'sudo chmod 777 /var/run/docker.soc'
                 sh 'docker build -t alpine1:2.0 .'
             }
         }
