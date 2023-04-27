@@ -1,22 +1,22 @@
 pipeline{
     agent any
     stages{
-        stage{
-            steps('build image'){
-                sh'docker build -t alpine1:2.0 .'
+        stage('build image'){
+            steps{
+                sh 'docker build -t alpine1:2.0 .'
             }
         }
 
-        stage{
-            steps('authorize doccker with gcr'){
-                sh'gcloud auth configure-docker'
+        stage('authorize doccker with gcr'){
+            steps{
+                sh 'gcloud auth configure-docker'
             }
         }
 
-        stage{
-            steps('push docker image'){
-                sh'docker tag alpine1:2.0 gcr.io/es-devops-sb/alpine1:2.0'
-                sh'docker push gcr.io/es-devops-sb/alpine1:2.0'
+        stage('push docker image'){
+            steps{
+                sh 'docker tag alpine1:2.0 gcr.io/es-devops-sb/alpine1:2.0'
+                sh 'docker push gcr.io/es-devops-sb/alpine1:2.0'
             }
         }
 
