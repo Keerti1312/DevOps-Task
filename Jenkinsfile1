@@ -8,12 +8,6 @@ pipeline{
             }
         }
 
-        stage('authorize docker with gcr'){
-            steps{
-                sh 'gcloud auth configure-docker --auto-approve'
-            }
-        }
-
         stage('push docker image'){
             steps{
                 sh 'docker tag alpine1:2.0 gcr.io/es-devops-sb/alpine1:2.0'
