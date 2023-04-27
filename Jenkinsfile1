@@ -10,7 +10,7 @@ pipeline{
 
         stage('authorize docker with gcr'){
             steps{
-                sh 'gcloud auth configure-docker'
+                sh 'gcloud auth configure-docker --auto-approve'
             }
         }
 
