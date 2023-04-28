@@ -65,7 +65,7 @@ resource "google_container_cluster" "cluster" {
 
 //create a service account
 resource "google_service_account" "gke-sa" {
-  account_id        = "${var.cluster_name}-node"
+  account_id        = "${var.cluster_name}-node-sa"
   display_name      = "GKE task Service Account"
   project           = "${var.project-id}"
 }
@@ -73,7 +73,7 @@ resource "google_service_account" "gke-sa" {
 
 //create a node pool
 resource "google_container_node_pool" "nodepool_standard" {
-  name       = "nodepool-standard"
+  name       = "${var.cluster_name}-nodepool"
   location   = "${var.zone}"
   project = var.project-id
   cluster    = google_container_cluster.cluster.name

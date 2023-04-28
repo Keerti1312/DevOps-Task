@@ -5,7 +5,7 @@ variable "project-id"{
 
 variable "vpc-name" {
     type = string
-    default = "vpc-network-task"
+    default = "task-vpc-network"
 }
 
 variable "firewall-name" {
