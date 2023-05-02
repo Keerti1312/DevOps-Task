@@ -70,6 +70,13 @@ resource "google_service_account" "gke-sa" {
   project           = "${var.project-id}"
 }
 
+//iam member
+resource "google_project_iam_member" "project-iam" {
+  project = var.project-id
+  role    = "roles/storage.viewer"
+  member = "${var.cluster_name}-node-sa@${var.project-id}.iam.gserviceaccount.com"
+  
+}
 
 //create a node pool
 resource "google_container_node_pool" "nodepool_standard" {
