@@ -71,14 +71,14 @@ resource "google_service_account" "gke-sa" {
 }
 
 //iam member
-resource "google_project_iam_member" "project-iam" {
-  project = var.project-id
-  role    = "roles/storageobject.viewer"
-  member ="user:keertivanalli@zebra.com"
+#resource "google_project_iam_member" "project-iam" {
+  #project = var.project-id
+  #role    = "roles/storageobject.viewer"
+  #member ="user:keertivanalli@zebra.com"
     #serviceAccount = "${var.cluster_name}-node-sa@${var.project-id}.iam.gserviceaccount.com"
   
   
-}
+#}
 
 //create a node pool
 resource "google_container_node_pool" "nodepool_standard" {
