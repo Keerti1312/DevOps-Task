@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nginx-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
@@ -15,9 +15,6 @@ spec:
       containers:
       - name: nginx-webpage
         image: gcr.io/es-devops-sb/alpine1:2.0
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
+        ports: 
         - containerPort: 80
+
