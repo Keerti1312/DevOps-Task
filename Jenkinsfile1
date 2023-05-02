@@ -17,6 +17,7 @@ pipeline{
 
         stage('create a deployment'){
             steps{
+                sh'gcloud container clusters get-credentials task-cluster --zone us-central1-a --project es-devops-sb'
                 sh 'kubectl apply -f deployment.yaml'
             }
         }
