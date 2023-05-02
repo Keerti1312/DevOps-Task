@@ -1,5 +1,10 @@
 pipeline{
     agent any
+    environment{
+        CLUSTER_NAME=('task-cluster')
+        ZONE=('us-cental1-a')
+        PROJECT_ID=('es-devops-sb')
+    }
     stages{
         stage('build image'){
             steps{
