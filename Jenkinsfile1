@@ -2,7 +2,7 @@ pipeline{
     agent any
     environment{
         CLUSTER_NAME='task-cluster'
-        ZONE='us-cental1-a'
+        ZONE='us-central1-a'
         PROJECT_ID='es-devops-sb'
     }
     stages{
