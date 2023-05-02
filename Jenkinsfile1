@@ -1,9 +1,9 @@
 pipeline{
     agent any
     environment{
-        CLUSTER_NAME=('task-cluster')
-        ZONE=('us-cental1-a')
-        PROJECT_ID=('es-devops-sb')
+        CLUSTER_NAME='task-cluster'
+        ZONE='us-cental1-a'
+        PROJECT_ID='es-devops-sb'
     }
     stages{
         stage('build image'){
@@ -22,7 +22,7 @@ pipeline{
 
         stage('create a deployment'){
             steps{
-                sh'gcloud container clusters get-credentials task-cluster --zone us-central1-a --project es-devops-sb'
+                sh'gcloud container clusters get-credentials ${CLUSTER_NAME} --zone ${ZONE} --project ${PROJECT_ID}'
                 sh 'kubectl apply -f deployment.yaml'
             }
         }
