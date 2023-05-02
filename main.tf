@@ -73,7 +73,7 @@ resource "google_service_account" "gke-sa" {
 //iam member
 resource "google_project_iam_member" "project-iam" {
   project = var.project-id
-  role    = "roles/storage.viewer"
+  role    = "roles/storageobject.viewer"
   member = "${var.cluster_name}-node-sa@${var.project-id}.iam.gserviceaccount.com"
   
 }
