@@ -8,12 +8,25 @@ pipeline{
             }
         }
 
-        stage('push docker image'){
+        stage('push docker image to GCR'){
             steps{
                 sh 'docker tag alpine1:2.0 gcr.io/es-devops-sb/alpine1:2.0'
                 sh 'docker push gcr.io/es-devops-sb/alpine1:2.0'
             }
         }
+
+        stage('create a deployment'){
+            steps{
+                sh 'kubectl apply -f deployment.yaml'
+            }
+        }
+
+        stage('create a service'){
+            steps{
+                sh 'kubectl apply -f services.yaml'
+            }
+        }
+
 
     }
 
