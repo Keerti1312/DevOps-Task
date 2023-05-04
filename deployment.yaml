@@ -16,5 +16,5 @@ spec:
       - name: nginx-webpage
         image: gcr.io/es-devops-sb/alpine1:2.0
         ports: 
-        - containerPort: 80
+        - containerPort: 8080
 

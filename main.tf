@@ -32,16 +32,6 @@ resource "google_compute_subnetwork" "subnetwork" {
   network       = google_compute_network.vpc_network.id
   project       = var.project-id
   private_ip_google_access = true
-  secondary_ip_range {
-    range_name    = "${var.cluster_name}-pod-ip-range"
-    ip_cidr_range = "${var.pods-ip}" 
-  }
-
-  secondary_ip_range {
-    range_name    = "${var.cluster_name}-svc-ip-range"
-    ip_cidr_range = "${var.services-ip}"
-  }
-  
 }
 
 //create a kubernetes cluster
@@ -53,14 +43,6 @@ resource "google_container_cluster" "cluster" {
   location                = "${var.zone}"
   remove_default_node_pool = "true"
   initial_node_count = 1
-  //master_ipv4_cidr_block  = "172.16.0.16/28"
-  ip_allocation_policy {
-    // subnet's secondary CIDR range to be used for pod IP addresses
-    cluster_secondary_range_name  = google_compute_subnetwork.subnetwork.secondary_ip_range.0.range_name
-    // subnet's secondary CIDR range to be used for service IP addresses
-    services_secondary_range_name = google_compute_subnetwork.subnetwork.secondary_ip_range.1.range_name
-  }
-
 }
 
 //create a service account
