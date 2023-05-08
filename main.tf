@@ -1,7 +1,7 @@
 //create a vpc
 resource "google_compute_network" "vpc_network" {
   project                 = var.project-id
-  name                    = var.vpc-name
+  name                    = "${var.cluster_name}-vpc"
   auto_create_subnetworks = false
   mtu                     = 1460
 }
@@ -9,7 +9,7 @@ resource "google_compute_network" "vpc_network" {
 
 //creates firewall rule
 resource "google_compute_firewall" "firewall_name" {
-  name    = var.firewall-name
+  name    = "${var.cluster_name}-firewall"
   network = google_compute_network.vpc_network.id
   project = var.project-id
 
@@ -26,18 +26,18 @@ resource "google_compute_firewall" "firewall_name" {
 
 //create a subnet
 resource "google_compute_subnetwork" "subnetwork" {
-  name          = var.subnet-name
-  ip_cidr_range = var.subnet-cidr
-  region        = var.region
+  name          = "${var.cluster_name}-subnet"
+  ip_cidr_range = "${var.subnet-cidr}"
+  region        = "${var.region}"
   network       = google_compute_network.vpc_network.id
-  project       = var.project-id
+  project       = "${var.project-id}"
   private_ip_google_access = true
 }
 
 //create a kubernetes cluster
 resource "google_container_cluster" "cluster" {
-  name                    = var.cluster_name
-  project                 = var.project-id
+  name                    = "${var.cluster_name}"
+  project                 = "${var.project-id}"
   network                 = google_compute_network.vpc_network.id
   subnetwork              = google_compute_subnetwork.subnetwork.id
   location                = "${var.zone}"
@@ -53,20 +53,19 @@ resource "google_service_account" "gke-sa" {
 }
 
 //iam member
-#resource "google_project_iam_member" "project-iam" {
-  #project = var.project-id
-  #role    = "roles/storageobject.viewer"
-  #member ="user:keertivanalli@zebra.com"
-    #serviceAccount = "${var.cluster_name}-node-sa@${var.project-id}.iam.gserviceaccount.com"
+resource "google_project_iam_member" "project-iam" {
+  project = "${var.project-id}"
+  role    = "roles/storageobject.viewer"
+  member ="serviceAccount:${var.cluster_name}-node-sa@${var.project-id}.iam.gserviceaccount.com"
   
   
-#}
+}
 
 //create a node pool
 resource "google_container_node_pool" "nodepool_standard" {
   name       = "${var.cluster_name}-nodepool"
   location   = "${var.zone}"
-  project = var.project-id
+  project = "${var.project-id}"
   cluster    = google_container_cluster.cluster.name
   node_count = "1"
 
@@ -74,7 +73,7 @@ resource "google_container_node_pool" "nodepool_standard" {
     machine_type = "e2-standard-2"
     disk_type    = "pd-standard"
     disk_size_gb = 20
-    image_type   = "COS_CONTAINERD"
+    image_type   = "centos-stream-8-v20230306 "
 
     // Use the cluster created service account for this node pool
     service_account = google_service_account.gke-sa.email
@@ -90,7 +89,7 @@ resource "google_container_node_pool" "nodepool_standard" {
     ]
 
     labels = {
-      cluster = var.cluster_name
+      cluster = var.cluster-name
     }
 
     // Enable workload identity on this node pool
