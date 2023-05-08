@@ -1,7 +1,7 @@
 //create a vpc
 resource "google_compute_network" "vpc_network" {
-  project                 = var.project-id
-  name                    = "${var.cluster_name}-vpc"
+  project                 ="${ var.project-id}"
+  name                    = "${var.cluster-name}-vpc"
   auto_create_subnetworks = false
   mtu                     = 1460
 }
@@ -9,7 +9,7 @@ resource "google_compute_network" "vpc_network" {
 
 //creates firewall rule
 resource "google_compute_firewall" "firewall_name" {
-  name    = "${var.cluster_name}-firewall"
+  name    = "${var.cluster-name}-firewall"
   network = google_compute_network.vpc_network.id
   project = var.project-id
 
@@ -26,7 +26,7 @@ resource "google_compute_firewall" "firewall_name" {
 
 //create a subnet
 resource "google_compute_subnetwork" "subnetwork" {
-  name          = "${var.cluster_name}-subnet"
+  name          = "${var.cluster-name}-subnet"
   ip_cidr_range = "${var.subnet-cidr}"
   region        = "${var.region}"
   network       = google_compute_network.vpc_network.id
@@ -36,7 +36,7 @@ resource "google_compute_subnetwork" "subnetwork" {
 
 //create a kubernetes cluster
 resource "google_container_cluster" "cluster" {
-  name                    = "${var.cluster_name}"
+  name                    = "${var.cluster-name}"
   project                 = "${var.project-id}"
   network                 = google_compute_network.vpc_network.id
   subnetwork              = google_compute_subnetwork.subnetwork.id
