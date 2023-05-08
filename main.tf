@@ -47,7 +47,7 @@ resource "google_container_cluster" "cluster" {
 
 //create a service account
 resource "google_service_account" "gke-sa" {
-  account_id        = "${var.cluster_name}-node-sa"
+  account_id        = "${var.cluster-name}-node-sa"
   display_name      = "GKE task Service Account"
   project           = "${var.project-id}"
 }
