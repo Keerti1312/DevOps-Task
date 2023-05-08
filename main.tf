@@ -63,7 +63,7 @@ resource "google_project_iam_member" "project-iam" {
 
 //create a node pool
 resource "google_container_node_pool" "nodepool_standard" {
-  name       = "${var.cluster_name}-nodepool"
+  name       = "${var.cluster-name}-nodepool"
   location   = "${var.zone}"
   project = "${var.project-id}"
   cluster    = google_container_cluster.cluster.name
@@ -89,7 +89,7 @@ resource "google_container_node_pool" "nodepool_standard" {
     ]
 
     labels = {
-      cluster = var.cluster-name
+      cluster = "${var.cluster-name}"
     }
 
     // Enable workload identity on this node pool
