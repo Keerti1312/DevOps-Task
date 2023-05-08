@@ -65,7 +65,7 @@ resource "google_container_node_pool" "nodepool_standard" {
     machine_type = "e2-standard-2"
     disk_type    = "pd-standard"
     disk_size_gb = 20
-    image_type   = "centos-cloud"
+    image_type   = "centos-7"
 
     // Use the cluster created service account for this node pool
     service_account = google_service_account.gke-sa.email
