@@ -52,14 +52,6 @@ resource "google_service_account" "gke-sa" {
   project           = "${var.project-id}"
 }
 
-//iam member
-resource "google_project_iam_member" "project-iam" {
-  project = "${var.project-id}"
-  role    = "roles/storageobject.viewer"
-  member ="serviceAccount:${var.cluster-name}-node-sa@${var.project-id}.iam.gserviceaccount.com"
-  
-  
-}
 
 //create a node pool
 resource "google_container_node_pool" "nodepool_standard" {
@@ -73,7 +65,7 @@ resource "google_container_node_pool" "nodepool_standard" {
     machine_type = "e2-standard-2"
     disk_type    = "pd-standard"
     disk_size_gb = 20
-    image_type   = "centos-stream-8-v20230306 "
+    image_type   = "centos-cloud"
 
     // Use the cluster created service account for this node pool
     service_account = google_service_account.gke-sa.email
