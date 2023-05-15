@@ -77,16 +77,6 @@ resource "google_container_node_pool" "nodepool_standard" {
       cluster = "${var.cluster-name}"
     }
 
-    // Enable workload identity on this node pool
-    #workload_metadata_config {
-    #  mode = "GKE_METADATA"
-    #}
-  }
-
-  // Repair any issues but don't auto upgrade node versions
-  management {
-    auto_repair  = "true"
-    auto_upgrade = "true"
   }
 
   depends_on = [
