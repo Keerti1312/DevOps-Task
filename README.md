@@ -2,11 +2,11 @@
 Project to demonstrate how to create GKE cluster and deploy container using terraform and jenkins
 
 # Pre-requisites
-•	CLI Tools on Jenkins and local 
-	1. Terraform
-	2. Docker
-	3. Kubectl
-	4. Git
+• CLI Tools on Jenkins and local 
+   1. Terraform
+   2. Docker
+   3. Kubectl
+   4. Git
 
 Terraform files are used to create infrastructure in GCP.
 Dockerfile and index.html files are used to build docker image.
