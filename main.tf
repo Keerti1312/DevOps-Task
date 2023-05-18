@@ -73,10 +73,6 @@ resource "google_container_node_pool" "nodepool_standard" {
     "https://www.googleapis.com/auth/cloud-platform"
     ]
 
-    labels = {
-      cluster = "${var.cluster-name}"
-    }
-
   }
 
   depends_on = [
